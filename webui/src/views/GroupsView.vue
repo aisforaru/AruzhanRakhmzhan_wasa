@@ -99,6 +99,12 @@ export default {
 </template>
 
 <style scoped>
+
+h1.h2 {
+  color: #f2b7c7ff !important;   /* розовый */
+  text-shadow: 0 0 2px #6b4f4f;
+}
+
 .d-flex {
   display: flex;
 }
@@ -128,7 +134,7 @@ export default {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #ff779b;
 }
 
 .btn-toolbar {
@@ -154,39 +160,6 @@ export default {
   margin-bottom: 0;
 }
 
-.conversations-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.conversation-block {
-  background-color: #f0f0f0;
-  padding: 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.conversation-photo {
-  flex-shrink: 0;
-  width: 75px;
-  height: 75px;
-}
-
-.profile-picture {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.conversation-details h4 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
 
 @media (max-width: 600px) {
   .conversation-block {

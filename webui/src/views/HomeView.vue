@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">{{ username }}, here are your conversations</h1>
+      <h1 class="h2">Ciao, {{ username }} !</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
           <button type="button" class="btn btn-sm btn-outline-secondary" @click="refresh">Refresh</button>
@@ -141,6 +141,12 @@ export default {
 </script>
 
 <style>
+h1.h2 {
+  color: #ff779b !important;   /* розовый */
+  text-shadow: 0 0 2px #6b4f4f;
+}
+
+
 .username-display {
   font-size: 16px;
   color: #555;

@@ -379,12 +379,12 @@ export default {
   display: flex;
   align-items: center;
   padding: 15px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: #ebb8cdff;
+  border: 1px solid #fde3eaff;
 }
 .chat-photo {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin-right: 10px;
 }
 .chat-photo img {
@@ -399,8 +399,7 @@ export default {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #ebb8cdff;
 }
 .message {
   position: relative;
@@ -408,11 +407,14 @@ export default {
   margin-bottom: 10px;
   border-radius: 10px;
   padding: 10px;
-  background-color: #e0f2f1;
+  background-color: #f7f1f3ff;
+  border: 1px solid #ebb8cdff;
+
 }
 .message.self {
   margin-left: auto;
-  background-color: #d1e7dd;
+  background-color: #f9bcccff;
+  border: 1px solid #ebb8cdff;
 }
 .sender-thumbnail {
   position: absolute;
@@ -447,7 +449,7 @@ export default {
   width: 300px;
   height: 300px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  border: 1px solid #ff779b;
   border-radius: 8px;
 }
 .attachment-image {
@@ -471,10 +473,10 @@ export default {
   position: static;
   width: 17px;
   height: 17px;
-  border: 1px solid #aaa;
+  border: 1px solid #ebb8cdff;
   border-radius: 50%;
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  background-color: #ffffffff;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
   opacity: 0.9;
   transition: opacity 0.2s;
   display: flex;
@@ -494,7 +496,7 @@ export default {
   position: absolute;
   top: 30px;
   right: 0;
-  background-color: #ffffff;
+  background-color: #ebb8cdff;
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -504,7 +506,7 @@ export default {
 .forward-select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #dee2e6;
+  border: 1px solid #ff779b;
   border-radius: 4px;
   margin-bottom: 8px;
   font-size: 14px;
@@ -516,7 +518,7 @@ export default {
   margin-top: 10px;
 }
 .button-style {
-  background-color: #128c7e;
+  background-color: #ff779b;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -524,14 +526,14 @@ export default {
   font-size: 14px;
 }
 .button-style:disabled {
-  background-color: #ccc;
+  background-color: #ebb8cdff;
   cursor: not-allowed;
 }
 .contact-search input {
   width: 100%;
   padding: 6px;
   margin-bottom: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #ebb8cdff;
   border-radius: 4px;
 }
 .contact-results {
@@ -540,16 +542,16 @@ export default {
   margin: 0 0 6px 0;
   max-height: 100px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  border: 1px solid #ebb8cdff;
   border-radius: 4px;
 }
 .contact-result {
   padding: 4px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ff779b;
 }
 .contact-result:hover {
-  background-color: #f0f0f0;
+  background-color: #ebb8cdff;
 }
 .file-icon {
   font-size: 18px;
@@ -573,8 +575,8 @@ export default {
   margin: 2px 0;
 }
 .reply-preview-box {
-  background-color: #f0f0f0;
-  border-left: 4px solid #128c7e;
+  background-color: #ffd3f2ff;
+  border-left: 4px solid #572801ff;
   padding: 8px;
   margin: 10px;
   display: flex;
@@ -608,7 +610,7 @@ export default {
   gap: 8px;
 }
 .attach-button {
-  background-color: #25d366;
+  background-color: #9d9997ff;
   color: white;
   border: none;
   border-radius: 20px;
@@ -618,19 +620,19 @@ export default {
   padding: 10px 15px;
 }
 .attach-button:hover {
-  background-color: #20b358;
+  background-color: #868382ff;
 }
 .message-input {
   flex: 1;
   min-width: 200px;
   padding: 12px;
-  border: 1px solid #dee2e6;
+  border: 1px solid #ff779b;
   border-radius: 20px;
   font-size: 14px;
   outline: none;
 }
 .send-button {
-  background-color: #128c7e;
+  background-color: #ff779b;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -640,7 +642,7 @@ export default {
   font-size: 14px;
 }
 .send-button:hover {
-  background-color: #0f7c6a;
+  background-color: #ff8fb1;
 }
 @media (max-width: 600px) {
   .conversation-block p {

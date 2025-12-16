@@ -312,7 +312,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: #e9c1ccff;
   }
   
   .group-photo {
@@ -360,7 +360,7 @@
   }
   
   button:disabled {
-    background-color: #ccc;
+    background-color: #e9c1ccff;
     cursor: not-allowed;
   }
   

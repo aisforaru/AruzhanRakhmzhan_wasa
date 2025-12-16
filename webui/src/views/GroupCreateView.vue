@@ -17,8 +17,10 @@
           v-model="query"
           class="search-box"
           type="text"
-          placeholder="Search by username"
+          placeholder=" Search by username"
         />
+
+
         <button class="search-button" type="submit">Search</button>
       </form>
       <div v-if="error" class="error-box">
@@ -65,9 +67,10 @@
         />
         <img v-if="previewImage" :src="previewImage" class="preview-image" alt="Group Image Preview"/>
       </div>
-      <button class="create-button" @click="createGroup" :disabled="!canCreateGroup">
+      <button type="button" class="create-button" @click="createGroup">
         Create Group
       </button>
+
     </div>
   </template>
 
@@ -103,8 +106,7 @@
       canCreateGroup() {
         return (
           this.groupName.trim() !== "" &&
-          this.selectedUsers.length > 0 &&
-          this.file !== null
+          this.selectedUsers.length > 0
         );
       },
     },
@@ -160,28 +162,40 @@
         }
       },
       async createGroup() {
-        if (!this.canCreateGroup) {
-          alert("Please fill in all required fields and select a group image.");
+        console.log("createGroup clicked");
+        if (this.groupName.trim() === "") {
+          alert("Please enter a group name");
+          return;
+        }
+        if (this.selectedUsers.length === 0) {
+          alert("Please add at least one member");
           return;
         }
         this.loading = true;
         this.error = "";
-        const formData = new FormData();
-        formData.append("name", this.groupName);
-        formData.append("image", this.file);
-        formData.append("members", JSON.stringify([...this.selectedUsers.map(u => u.id), localStorage.getItem("token")]));
         try {
-          await axios.post(`/groups`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          alert("Group created successfully!");
-          this.$router.push(`/home`);
+          const formData = new FormData();
+          formData.append("name", this.groupName);
+          formData.append("members", JSON.stringify([...this.selectedUsers.map(u => u.id), localStorage.getItem("token")
+          ])
+        );
+        if (this.file) {
+          formData.append("image", this.file);
+        } else {
+          const res = await fetch("/default-group.png");
+          if (!res.ok) throw new Error("Default image not found");
+
+          const blob = await res.blob();
+          formData.append("image", blob, "default.png");
+        }
+        await axios.post(`/groups`, formData); 
+        
+        alert("Group created successfully!");
+        this.$router.push(`/home`);
+        
         } catch (err) {
-          const status = err.response?.status;
-          const reason = err.response?.data?.message || "Failed to create group.";
-          this.error = `Status ${status}: ${reason}`;
+          console.error(err);
+          this.error = "Failed to create group";
         } finally {
           this.loading = false;
         }
@@ -189,148 +203,218 @@
     },
   };
   </script>
+
   <style scoped>
+
+.group-create-container h1,
+.group-create-container h2,
+.group-create-container h3,
+.group-create-container h4,
+.group-create-container h5,
+.group-create-container p,
+.group-create-container span {
+  color: #f2b7c7ff;
+  text-shadow: 0 0 2px #6b4f4f;
+}
   .group-create-container {
+    --form-width: 420px;
     text-align: center;
     padding: 20px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 120px auto;
+    color: #f2b7c7ff;
+    text-shadow: 0 0 2px #6b4f4f;
   }
-  
+
   .page-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+  color: #f2b7c7ff;
+  text-shadow: 0 0 2px #6b4f4f;
   }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .input-field, .search-box {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .search-form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-button, .create-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .search-button:hover, .create-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-box {
-    background-color: #f8d7da;
-    color: #842029;
-    border: 1px solid #f5c2c7;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  .results-section {
-    margin-top: 20px;
-    max-height: 300px; 
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-  }
-  
+
   .results-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #444;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #f2b7c7ff;
+    text-shadow: 0 0 2px #6b4f4f;
   }
-  
+  label {
+    color: #e0b4c0ff;
+  }
+
   .user-card {
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .user-name {
-    font-size: 18px;
-    color: #007bff;
-  }
-  
-  .add-button, .remove-button {
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: #fff;
+
+    padding: 10px 12px;
+    margin-top: 8px;
+
+    background-color: transparent;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
+  }
+  .user-card:hover {
+    background-color: #f0c6d262;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-group label {
+    margin-bottom: 8px;
+  }
+
+
+
+  .search-button {
+    width: 100px;          
+    flex-shrink: 0;
+  }
+
+  .input-field {
+    width: var(--form-width);
+    max-width: 100%;
+    padding: 12px;
+    background-color: #3a3a3c;  
+    color: #ffdde6;
+    border: 1px solid #6b4f4f;
+    border-radius: 8px;          
+  }
+
+  .search-box,
+  input[type="file"] {
+    width: var(--form-width);
+    max-width: 100%;
+    background-color: #3a3a3c;  /* DARK like before */
+    color: #ffdde6;
+    border-radius: 8px;
+    border: 1px solid #6b4f4f;
+  }
+
+  .input-field::placeholder,
+  .search-box::placeholder {
+    color: #d9a7b5;
+  }
+
+  .input-field:focus,
+  .search-box:focus {
+    outline: none;
+    border-color: #ff779b;   /* subtle pink */
+    box-shadow: none;        /* IMPORTANT */
+  }
+
+  .search-form {
+    width: var(--form-width);
+    max-width: 100%;
+    margin: 0 auto 24px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .search-button,
+  .add-button,
+  .remove-button {
+    background-color: #ff779b;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 14px;
   }
-  
-  .add-button:hover, .remove-button:hover {
-    background-color: #218838;
+    
+  .create-button {
+    background-color: #ff779b;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  } 
+
+  .create-button:hover {
+    background-color: #ff8fb1;
   }
-  
-  .add-button[disabled], .remove-button[disabled] {
-    background-color: #ccc;
+
+  .create-button:disabled {
+    background-color: #555;
     cursor: not-allowed;
   }
-  
-  .selected-users-section {
-    margin-top: 20px;
+
+  .user-name {
+    color: #3b2b2b; /* тёмно-серый для @ajaja */
   }
-  
-  .selected-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #444;
-    margin-bottom: 10px;
-  }
-  
-  .selected-users {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
+
   .selected-user {
-    padding: 5px 10px;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    margin: 5px;
-    font-size: 16px;
+    color: #3b2b2b;
   }
-  
-  .preview-image {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 10px;
+
+
+
+  .search-button:hover,
+  .add-button:hover,
+  .remove-button:hover {
+    background-color: #ff8fb1;
   }
-  @media (max-width: 768px) {
-  .results-section {
-    max-height: 200px;
+    
+  button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
   }
-}
-  </style>
+
+  .error-box {
+    background-color: #3a1f28;
+    color: #ffb3c6;
+    border: 1px solid #6b4f4f;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 20px 0;
+  }
+
+
+
+    .selected-user {
+      background-color: #696465ff;
+      color: #3b2a2a;
+      border-radius: 8px;
+      padding: 6px 12px;
+      margin: 5px;
+    }
+
+    .preview-image {
+      max-width: 200px;
+      max-height: 200px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: 1px solid #6b4f4f;
+    }
+
+    .results-section {
+      width: var(--form-width);
+      max-width: 100%;
+      margin: 14px auto;
+      background-color: #2f2f33;   /* dark card */
+      border: 1px solid #6b4f4f;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .results-wrapper {
+      min-height: 160px;   /* smaller than before */
+    }
+
+    input[type="file"]::file-selector-button {
+      background-color: #ebb8cdff;   /* light grey */
+      color: #2b2b2b;
+      border-color: #ff779b; 
+      border-radius: 6px;
+      padding: 4px 11px;
+      margin-right: 11px;
+      cursor: pointer;
+    }
+    </style>

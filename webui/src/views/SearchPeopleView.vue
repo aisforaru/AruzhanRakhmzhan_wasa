@@ -157,16 +157,21 @@ export default {
 
 .search-box {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ff779b;
   border-radius: 5px;
   font-size: 16px;
   width: 300px;
+  padding: 12px;
+  background-color: #3a3a3c;  
+  color: #ffdde6;
+  border: 1px solid #ff779b;
+  border-radius: 8px;    
 }
 
 .search-button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #ff779b;
+  color: #2b2b2b;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -175,13 +180,13 @@ export default {
 }
 
 .search-button:hover {
-  background-color: #0056b3;
+  background-color: #ff779b;
 }
 
 .error-box {
-  background-color: #f8d7da;
-  color: #842029;
-  border: 1px solid #f5c2c7;
+  background-color: #3a1f28;
+  color: #ffb3c6;
+  border: 1px solid #6b4f4f;
   border-radius: 5px;
   padding: 10px;
   margin: 20px 0;
@@ -202,8 +207,8 @@ export default {
 .user-card {
   padding: 10px;
   margin: 10px 0;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  background-color: transparent;
+  border: 1px solid #ebb8cd61;
   border-radius: 5px;
   font-size: 18px;
   display: flex;
@@ -212,13 +217,13 @@ export default {
 }
 
 .user-card:hover {
-  background-color: #e9ecef;
+  background-color: #e9c1cc33;
 }
 
 .user-name {
   margin: 0;
   font-size: 18px;
-  color: #007bff;
+  color: #ebb8cdff;
 }
 
 .user-name:hover {
@@ -226,22 +231,22 @@ export default {
 }
 
 .text-button {
-  padding: 5px 10px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
+  padding: 5px 30px;
+  background-color: #ff779b;
+  color: #2b2b2b;
+  border: #ebb8cdff;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .text-button:hover {
-  background-color: #218838;
+  background-color: #ff8fb1;
 }
 
 .no-results {
   font-size: 16px;
-  color: #666;
+  color: #ebb8cdff;
   margin-top: 20px;
 }
 </style>

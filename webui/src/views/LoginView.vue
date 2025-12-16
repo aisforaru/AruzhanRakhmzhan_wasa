@@ -78,8 +78,8 @@ export default {
 </script>
 
 <template>
-  <div class="login-container">
-    <h1 class="login-title">Welcome to WASAText</h1>
+  <div class="login-container shadow-sm">
+    <h2 class="login-title">Welcome to WASAText</h2>
     <div class="input-group">
       <input
         type="text"
@@ -96,21 +96,28 @@ export default {
 
 <style scoped>
 .login-container {
-  max-width: 400px;
-  margin: 100px auto;
+  max-width: 420px;
+  margin: 140px auto;
   text-align: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 28px;
+  border-radius: 14px;
+
+  /* dark grey card matching your theme */
+  background-color: #2f2f33;
+  border: 1px solid #3a3a3c;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
 }
 
 .login-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  color: #fcdfe7ff;
+
+  text-shadow:
+    0 0 2px #6b4f4f,
+    0 0 3px #6b4f4f;
 }
 
 .input-group {
@@ -120,24 +127,31 @@ export default {
 }
 
 .login-input {
-  padding: 10px;
+  padding: 12px;
   width: 100%;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin-bottom: 14px;
+  background-color: #e9c1ccff;
+  border: 1px solid #6a6a6d;
+  border-radius: 6px;
+  color: #504447ff;
+  font-size: 15px;
 }
 
 .login-button {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: 10px 15px;
+  background-color: #ff8eacff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
 }
 
+.login-input::placeholder {
+  color: #5f555fff;
+}
+
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #ff779bff;
 }
 </style>

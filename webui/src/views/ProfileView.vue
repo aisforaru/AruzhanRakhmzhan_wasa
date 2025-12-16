@@ -173,11 +173,11 @@ export default {
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid #ff779b;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
+
 }
 
 .profile-photo {
@@ -187,18 +187,22 @@ export default {
 }
 
 .no-photo-placeholder {
-  color: #aaa;
+  color: #ff779b;
   font-size: 14px;
 }
 
 .username-container {
   flex: 1;
+  border: 1px solid #6b4f4f;
+  border-radius: 8px;       
+  padding: 20px;  
 }
 
 .username {
   margin: 0;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
+  color: #ffdde6;
 }
 
 .update-username-section,
@@ -211,32 +215,46 @@ export default {
 
 input {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ff779b;
   border-radius: 4px;
   flex: 1;
   max-width: 300px;
+  background-color: #3a3a3c;  
+  color: #ffdde6;
+
 }
 
 .custom-button {
   padding: 8px 16px;
   background-color: transparent;
-  border: 1px solid #007bff;
-  color: #007bff;
-  border-radius: 4px;
+  border: 1px solid #ff779b;
+  color: #ebb8cdff;
+  border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .custom-button:hover:not(:disabled) {
-  background-color: #007bff;
+  background-color: #ff779b;
   color: white;
 }
 
 .custom-button:disabled {
-  border-color: #cccccc;
-  color: #cccccc;
+  border-color: #ff779b;
+  color: #ebb8cdff;
   cursor: not-allowed;
   background-color: transparent;
 }
+
+    input[type="file"]::file-selector-button {
+      background-color: #ff779b;   /* light grey */
+      color: #2b2b2b;
+      border-color: #ff779b; 
+      border-radius: 6px;
+      padding: 1px 11px;
+      margin-right: 11px;
+      cursor: pointer;
+    }
+
 </style>
