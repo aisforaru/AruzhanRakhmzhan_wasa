@@ -6,7 +6,7 @@ import (
 	"github.com/gofrs/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/sirupsen/logrus"
-	"github.com/tassdam/wasa/service/api/reqcontext"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api/reqcontext"
 )
 
 type httpRouterHandler func(http.ResponseWriter, *http.Request, httprouter.Params, reqcontext.RequestContext)

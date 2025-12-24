@@ -19,7 +19,7 @@
           <img :src="'data:image/jpeg;base64,' + message.senderPhoto" alt="Sender Photo" />
         </div>
         <div class="message-content">
-          <div v-if="message.replyContent || message.replyAttachment" class="reply-preview">
+          <div v-if="message.replyToMessageId" class="reply-preview">
             <small>Replying to {{message.replySenderName || 'Unknown'}} </small>
             <p>
               {{ message.replyContent || '[deleted]'  }}

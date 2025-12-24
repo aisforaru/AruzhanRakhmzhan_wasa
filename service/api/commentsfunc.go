@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/tassdam/wasa/service/api/reqcontext"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api/reqcontext"
 )
 
 func (rt *_router) commentMessage(

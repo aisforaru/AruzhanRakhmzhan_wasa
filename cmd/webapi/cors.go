@@ -8,11 +8,18 @@ import (
 
 func applyCORSHandler(h http.Handler) http.Handler {
 	return handlers.CORS(
-		handlers.AllowedHeaders([]string{
-			"content-type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "X-Requested-With", "Authorization",
+		handlers.AllowedOrigins([]string{
+			"http://localhost:5173",
 		}),
-		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"}),
-		handlers.AllowedOrigins([]string{"*"}),
-		handlers.MaxAge(1),
+		handlers.AllowedMethods([]string{
+			"GET", "POST", "OPTIONS", "DELETE", "PUT",
+		}),
+		handlers.AllowedHeaders([]string{
+			"Content-Type",
+			"Authorization",
+		}),
+		handlers.AllowCredentials(),
 	)(h)
 }
+
+

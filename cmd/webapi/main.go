@@ -14,9 +14,10 @@ import (
 	"github.com/ardanlabs/conf"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/sirupsen/logrus"
-	"github.com/tassdam/wasa/service/api"
-	"github.com/tassdam/wasa/service/database"
-	"github.com/tassdam/wasa/service/globaltime"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/globaltime"
+
 )
 
 func main() {
@@ -72,6 +73,7 @@ func run() error {
 	}
 	router := apirouter.Handler()
 	router, err = registerWebUI(router)
+	router = applyCORSHandler(router)
 	if err != nil {
 		logger.WithError(err).Error("error registering web UI handler")
 		return fmt.Errorf("registering web UI handler: %w", err)

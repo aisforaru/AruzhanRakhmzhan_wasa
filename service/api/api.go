@@ -6,7 +6,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/sirupsen/logrus"
-	"github.com/tassdam/wasa/service/database"
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
 )
 
 type Config struct {
