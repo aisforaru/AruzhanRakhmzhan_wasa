@@ -130,11 +130,23 @@ export default {
         localStorage.setItem("name", this.newUserName);
         this.userName = response.data.name;
         this.newUserName = response.data.name;
+        window.dispatchEvent(new Event("username-updated"));
+
       } catch (error) {
         console.error("Failed to update username:", error);
-        this.errormsg = "Failed to update username. Please try again.";
+        if (error.response) {
+          if (error.response.status === 409) {
+            this.errormsg = "This username is already taken. Please choose another one.";
+          } else if (error.response.status === 400) {
+            this.errormsg = "Invalid username.";
+          } else {
+            this.errormsg = "This username is taken. Please try another one";
+          }
+        } else {
+          this.errormsg = "Failed to update username. Please check your connection.";
       }
-    },
+    }
+  },
     refresh() {
       this.fetchUserProfile();
     },
@@ -248,7 +260,7 @@ input {
 }
 
     input[type="file"]::file-selector-button {
-      background-color: #ff779b;   /* light grey */
+      background-color: #ff779b;   
       color: #2b2b2b;
       border-color: #ff779b; 
       border-radius: 6px;

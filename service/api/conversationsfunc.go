@@ -120,7 +120,8 @@ func (rt *_router) sendMessage(
 		return
 	}
 	content := r.FormValue("content")
-	replyTo := r.FormValue("replyTo")
+	replyTo := r.FormValue("replyToMessageId")
+
 	var attachment []byte
 	file, header, err := r.FormFile("attachment")
 	if err == nil {

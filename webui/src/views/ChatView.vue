@@ -19,12 +19,14 @@
           <img :src="'data:image/jpeg;base64,' + message.senderPhoto" alt="Sender Photo" />
         </div>
         <div class="message-content">
-          <div v-if="message.replyTo" class="reply-preview">
-            <small>Replying to {{ message.replySenderName || 'Unknown' }}: {{ message.replyContent }}</small>
+          <div v-if="message.replyContent || message.replyAttachment" class="reply-preview">
+            <small>Replying to {{message.replySenderName || 'Unknown'}} </small>
+            <p>
+              {{ message.replyContent || '[deleted]'  }}
+            </p>
             <img
               v-if="message.replyAttachment"
               :src="'data:image/jpeg;base64,' + message.replyAttachment"
-              alt="Reply Attachment"
               class="reply-attachment"
             />
           </div>
@@ -158,6 +160,9 @@ export default {
     handleFileSelect(event) {
       this.selectedFile = event.target.files[0];
     },
+    findMessage(id) {
+      return this.messages.find(m => m.id === id);
+    },
     async sendMessage() {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -167,7 +172,7 @@ export default {
       const formData = new FormData();
       formData.append("content", this.message);
       if (this.replyToMessage) {
-        formData.append("replyTo", this.replyToMessage.id);
+        formData.append("replyToMessageId", this.replyToMessage.id);
       }
       if (this.selectedFile) {
         formData.append("attachment", this.selectedFile);

@@ -1,6 +1,6 @@
 package api
 
-import "time"
+
 
 type LoginRequest struct {
 	Name  string `json:"name"`
@@ -26,8 +26,20 @@ type User struct {
 }
 
 type Message struct {
-	ID        string    `json:"id"`
-	SenderID  string    `json:"senderId"`
-	Content   string    `json:"content"`
-	Timestamp time.Time `json:"timestamp"`
+    Id              string  `json:"id"`
+    ConversationId  string  `json:"conversationId"`
+    SenderId        string  `json:"senderId"`
+    SenderName      string  `json:"senderName"`
+    Content         string  `json:"content"`
+    Timestamp       string  `json:"timestamp"`
+    Attachment      []byte  `json:"attachment"`
+
+    ReplyTo         string  `json:"replyTo"` // 🔥 ВАЖНО
+    ReplyContent    string  `json:"replyContent"`
+    ReplySenderName string  `json:"replySenderName"`
+    ReplyAttachment []byte  `json:"replyAttachment"`
 }
+
+
+
+
