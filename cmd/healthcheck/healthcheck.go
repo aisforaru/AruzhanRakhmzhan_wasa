@@ -2,23 +2,29 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"strconv" // Importing strconv to convert port to string
 )
 
 func main() {
 	var port = flag.Int("port", 3000, "HTTP port for healthcheck")
 	flag.Parse()
-	res, err := http.Get(fmt.Sprintf("http://localhost:%d/liveness", *port))
+
+	// Construct the healthcheck URL
+	url := "http://localhost:" + strconv.Itoa(*port) + "/liveness"
+	res, err := http.Get(url)
 	if err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, err.Error())
-		os.Exit(1)
+		log.Println("Error:", err) // Log the error message
+		os.Exit(1)                 // Exit with a non-zero status code
 	} else if res.StatusCode != http.StatusOK && res.StatusCode != http.StatusNoContent {
 		_ = res.Body.Close()
-		_, _ = fmt.Fprintln(os.Stderr, "Healthcheck request not OK: ", res.Status)
+		log.Println("Healthcheck request not OK:", res.Status) // Log healthcheck failure
 		os.Exit(1)
 	}
+
+	// Close the response body and exit successfully
 	_ = res.Body.Close()
 	os.Exit(0)
 }

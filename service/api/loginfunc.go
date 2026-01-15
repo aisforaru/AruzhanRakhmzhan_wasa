@@ -6,9 +6,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api/reqcontext"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
+	"github.com/julienschmidt/httprouter"
 )
 
 func (rt *_router) doLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {

@@ -69,12 +69,12 @@ func (db *appdbimpl) SaveMessage(
 		return Message{}, fmt.Errorf("error saving message: %w", err)
 	}
 	return Message{
-		Id:             messageID,
-		ConversationId: conversationID,
-		SenderId:       senderID,
-		Content:        content,
-		Timestamp:      timestamp,
-		Attachment:     attachment,
+		Id:               messageID,
+		ConversationId:   conversationID,
+		SenderId:         senderID,
+		Content:          content,
+		Timestamp:        timestamp,
+		Attachment:       attachment,
 		ReplyTo:        replyTo,
 	}, nil
 }
@@ -128,6 +128,52 @@ func (db *appdbimpl) IsUserInConversation(conversationID, userID string) (bool, 
 	}
 	return exists, nil
 }
+func (db *appdbimpl) GetUserNamesByIDs(ids []string) ([]string, error) {
+	if len(ids) == 0 {
+		return []string{}, nil
+	}
+
+	// Build: (?, ?, ?, ...)
+	placeholders := make([]string, 0, len(ids))
+	args := make([]interface{}, 0, len(ids))
+	for _, id := range ids {
+		placeholders = append(placeholders, "?")
+		args = append(args, id)
+	}
+
+	query := "SELECT id, name FROM users WHERE id IN (" + strings.Join(placeholders, ",") + ")"
+	rows, err := db.c.Query(query, args...)
+	if err != nil {
+		return nil, fmt.Errorf("error fetching user names: %w", err)
+	}
+	defer rows.Close()
+
+	// Map id -> name
+	idToName := make(map[string]string, len(ids))
+	for rows.Next() {
+		var id, name string
+		if err := rows.Scan(&id, &name); err != nil {
+			return nil, fmt.Errorf("error scanning user: %w", err)
+		}
+		idToName[id] = name
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows error: %w", err)
+	}
+
+	// Preserve original order of ids
+	names := make([]string, 0, len(ids))
+	for _, id := range ids {
+		if name, ok := idToName[id]; ok {
+			names = append(names, name)
+		} else {
+			// fallback if user missing
+			names = append(names, id)
+		}
+	}
+
+	return names, nil
+}
 
 func (db *appdbimpl) GetConversationDetails(conversationID, currentUserID string) (Conversation, error) {
 	var conversation Conversation
@@ -161,7 +207,13 @@ func (db *appdbimpl) GetConversationDetails(conversationID, currentUserID string
 	if err != nil {
 		return Conversation{}, fmt.Errorf("error fetching conversation members: %w", err)
 	}
-	conversation.Members = members
+
+	memberNames, err := db.GetUserNamesByIDs(members)
+	if err != nil {
+		return Conversation{}, err
+	}
+	conversation.Members = memberNames
+
 	if conversation.Type == "direct" {
 		var otherUserID string
 		for _, m := range members {
@@ -198,7 +250,7 @@ SELECT
     m.content, 
     m.timestamp, 
     m.attachment,
-    m.replyTo,
+	IFNULL(m.replyTo, '') AS replyTo,
     u.name AS senderName,
     u.photo AS senderPhoto,
     ((SELECT COUNT(*) FROM conversation_members WHERE conversationId = m.conversationId) - 1) AS totalRecipients,

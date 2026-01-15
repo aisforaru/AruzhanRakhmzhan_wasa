@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api/reqcontext"
+	"github.com/julienschmidt/httprouter"
 )
 
 func (rt *_router) commentMessage(

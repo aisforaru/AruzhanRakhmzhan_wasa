@@ -11,13 +11,12 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/ardanlabs/conf"
-	_ "github.com/mattn/go-sqlite3"
-	"github.com/sirupsen/logrus"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/globaltime"
-
+	"github.com/ardanlabs/conf"
+	_ "github.com/mattn/go-sqlite3"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {

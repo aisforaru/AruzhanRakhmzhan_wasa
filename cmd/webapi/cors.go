@@ -21,5 +21,3 @@ func applyCORSHandler(h http.Handler) http.Handler {
 		handlers.AllowCredentials(),
 	)(h)
 }
-
-

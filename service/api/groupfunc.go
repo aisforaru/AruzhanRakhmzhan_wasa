@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/api/reqcontext"
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
+	"github.com/julienschmidt/httprouter"
 )
 
 func (rt *_router) createGroup(

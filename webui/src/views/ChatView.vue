@@ -1,11 +1,29 @@
 <template>
   <div class="chat-container">
     <div class="chat-header">
-      <div class="chat-photo" v-if="conversationPhoto">
-        <img :src="'data:image/jpeg;base64,' + conversationPhoto" alt="Chat Thumbnail" />
+      <div class="header-left">
+        <div class="chat-photo" v-if="conversationPhoto">
+          <img :src="'data:image/jpeg;base64,' + conversationPhoto" alt="Chat Thumbnail" />
+        </div>
+        <h3>{{ convName }}</h3>
       </div>
-      <h3>{{ convName }}</h3>
+
+      <div v-if="conversationType === 'group'" class="header-right">
+        <button class="members-toggle-btn" @click.stop="showMembers = !showMembers">
+          👥 {{ members.length }} Members
+        </button>
+
+        <div v-if="showMembers" class="members-dropdown" @click.stop>
+          <div class="members-header">Group Members</div>
+          <ul>
+            <li v-for="member in members" :key="member" class="member-item">
+              <span class="member-dot"></span> {{ member }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
     <div class="chat-messages" ref="chatMessages">
       <p v-if="messages.length === 0">No messages yet...</p>
       <div
@@ -19,7 +37,8 @@
           <img :src="'data:image/jpeg;base64,' + message.senderPhoto" alt="Sender Photo" />
         </div>
         <div class="message-content">
-          <div v-if="message.replyToMessageId" class="reply-preview">
+          <div v-if="message.replyTo && (message.replyContent || message.replyAttachment)" class="reply-preview">
+
             <small>Replying to {{message.replySenderName || 'Unknown'}} </small>
             <p>
               {{ message.replyContent || '[deleted]'  }}
@@ -136,6 +155,8 @@ export default {
     return {
       message: "",
       messages: [],
+      members: [],
+      showMembers: false,
       userToken: localStorage.getItem("token"),
       convName: localStorage.getItem("conversationName") || "Unknown User",
       conversationPhoto: null,
@@ -172,7 +193,7 @@ export default {
       const formData = new FormData();
       formData.append("content", this.message);
       if (this.replyToMessage) {
-        formData.append("replyToMessageId", this.replyToMessage.id);
+        formData.append("replyTo", this.replyToMessage.id);
       }
       if (this.selectedFile) {
         formData.append("attachment", this.selectedFile);
@@ -203,6 +224,9 @@ export default {
         reactingUserNames: msg.reactingUserNames || [],
         showReactedList: false
       }));
+      this.members = response.data.members || [];
+
+
       if (response.data.name) {
         this.convName = response.data.name;
       }
@@ -212,6 +236,7 @@ export default {
         this.conversationPhoto = null;
       }
       this.conversationType = response.data.type || "direct";
+      
       this.$nextTick(() => {
         if (this.firstLoad) {
           this.forceScrollToBottom();
@@ -282,6 +307,7 @@ export default {
       }
     },
     closeAllMenus() {
+      this.showMembers = false;
       for (const id in this.messageOptions) {
         this.messageOptions[id].showForwardMenu = false;
       }
@@ -386,6 +412,87 @@ export default {
   padding: 15px;
   background-color: #ebb8cdff;
   border: 1px solid #fde3eaff;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.members-toggle-btn {
+  background: #ff779b;            /* soft pink/gray background */
+  border: 1px solid #ebb8cdff;      /* same border tone as your UI */
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #572801ff;                 /* your brown accent (used in reply preview border) */
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.members-toggle-btn:hover {
+  opacity: 0.95;
+}
+
+.members-dropdown {
+  position: absolute;
+  top: 58px;
+  right: 10px;
+  width: 220px;
+  background: #9d9997ff;
+  border: 1px solid #ebb8cdff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.members-header {
+  padding: 10px 12px;
+  font-weight: 700;
+  color: #333;
+  background: #ebb8cdff;            /* light pink */
+  border-bottom: 1px solid #ebb8cdff;
+}
+
+.members-dropdown ul {
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.member-item {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #fde3eaff;
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-item:hover {
+  background: #f7f1f3ff;
+}
+
+/* Dot indicator (pink) */
+.member-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ff779b;        /* your main pink accent */
+  border-radius: 50%;
+  margin-right: 8px;
 }
 .chat-photo {
   width: 50px;

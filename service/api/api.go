@@ -4,9 +4,9 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
 	"github.com/julienschmidt/httprouter"
 	"github.com/sirupsen/logrus"
-	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
 )
 
 type Config struct {

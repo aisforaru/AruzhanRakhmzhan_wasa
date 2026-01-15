@@ -1,7 +1,5 @@
 package api
 
-
-
 type LoginRequest struct {
 	Name  string `json:"name"`
 	Photo string `json:"photo"`
@@ -26,20 +24,23 @@ type User struct {
 }
 
 type Message struct {
-    Id              string  `json:"id"`
-    ConversationId  string  `json:"conversationId"`
-    SenderId        string  `json:"senderId"`
-    SenderName      string  `json:"senderName"`
-    Content         string  `json:"content"`
-    Timestamp       string  `json:"timestamp"`
-    Attachment      []byte  `json:"attachment"`
+	Id             string `json:"id"`
+	ConversationId string `json:"conversationId"`
+	SenderId       string `json:"senderId"`
+	SenderName     string `json:"senderName"`
+	SenderPhoto    string `json:"senderPhoto"` // base64 string, IMPORTANT for group UI
 
-    ReplyTo         string  `json:"replyTo"` // 🔥 ВАЖНО
-    ReplyContent    string  `json:"replyContent"`
-    ReplySenderName string  `json:"replySenderName"`
-    ReplyAttachment []byte  `json:"replyAttachment"`
+	Content    string `json:"content"`
+	Timestamp  string `json:"timestamp"`
+	Attachment []byte `json:"attachment"`
+
+	ReplyTo        string `json:"replyTo"`
+	ReplyContent    string `json:"replyContent"`
+	ReplySenderName string `json:"replySenderName"`
+	ReplyAttachment []byte `json:"replyAttachment"`
+
+	ReactionCount     int      `json:"reactionCount"`
+	ReactingUserNames []string `json:"reactingUserNames"`
+	Status            string   `json:"status"`
+
 }
-
-
-
-
