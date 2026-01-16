@@ -120,7 +120,10 @@
             </div>
           </div>
         </div>
-        <div class="message-status" v-if="message.status && message.senderId !== userToken">
+        <div class="message-status" v-if="message.status && message.senderId === userToken"
+          :class="{ read: message.status === '✓✓' }"
+        >
+        
           {{ message.status }}
         </div>
       </div>
@@ -525,6 +528,8 @@ export default {
 }
 .message.self {
   margin-left: auto;
+  padding-bottom: 34px;   /* was 20px */
+  padding-right: 44px;
   background-color: #f9bcccff;
   border: 1px solid #ebb8cdff;
 }
@@ -671,10 +676,13 @@ export default {
 }
 .message-status {
   position: absolute;
-  bottom: 5px;
+  bottom: 8px;
   right: 10px;
-  font-size: 12px;
+  font-size: 15px;
   color: #555;
+}
+.message-status.read {
+  color: #1d944fff; /* green for ✓✓ */
 }
 .reactors-list ul {
   margin: 0;
