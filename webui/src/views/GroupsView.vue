@@ -100,10 +100,7 @@ export default {
 
 <style scoped>
 
-h1.h2 {
-  color: #f2b7c7ff !important;   /* розовый */
-  text-shadow: 0 0 2px #6b4f4f;
-}
+
 
 .d-flex {
   display: flex;

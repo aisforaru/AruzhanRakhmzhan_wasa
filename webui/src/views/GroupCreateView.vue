@@ -268,7 +268,6 @@
   }
 
 
-
   .search-button {
     width: 100px;          
     flex-shrink: 0;

@@ -1,5 +1,7 @@
 //go:build webui
 
+//тут добавляем поддержку хэндлера,если путь начинается с /dashboard/, он отдаёт статические файлы из embedded dist,
+//  а все остальные запросы передаёт в API router
 package main
 
 import (

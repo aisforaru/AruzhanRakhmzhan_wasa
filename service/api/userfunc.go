@@ -11,7 +11,7 @@ import (
 	"github.com/aisforaru/AruzhanRakhmzhan_wasa/service/database"
 	"github.com/julienschmidt/httprouter"
 )
-
+//д
 var ErrUnauthorized = errors.New("unauthorized request")
 
 func (rt *_router) setMyUserName(
