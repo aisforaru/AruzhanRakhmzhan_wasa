@@ -1,5 +1,10 @@
 package api
 
+//data transfer obj for http api, 
+// describes JSON requests and answers which are
+//sent/received to frontend
+
+
 type LoginRequest struct {
 	Name  string `json:"name"`
 	Photo string `json:"photo"`

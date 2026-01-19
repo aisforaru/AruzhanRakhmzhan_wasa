@@ -240,13 +240,15 @@
 .search-input {
   flex: 1;
   padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #ff779b;
+  border-radius: 10px;
+  background: #3b3b3b;
+  color: #fff;
 }
 
 .search-button {
   padding: 0.5rem 1rem;
-  background-color: #28a745;
+  background-color: #ff779b;
   color: white;
 }
 
@@ -271,7 +273,7 @@
 
 .add-button {
   padding: 0.25rem 0.75rem;
-  background-color: #17a2b8;
+  background-color: #ff779b;
   color: white;
 }
 
@@ -328,6 +330,7 @@
   
   .groupName-container {
     flex: 1;
+
   }
   
   .groupName {
@@ -342,17 +345,23 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+
+    
   }
   
   input {
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ff779b;
+    border-radius: 10px;
+    background: #3b3b3b;
+    color: #fff;
+
   }
   
   button {
     padding: 8px 12px;
-    background-color: #007bff;
+    background-color: #ff779b;
     color: white;
     border: none;
     border-radius: 4px;
@@ -365,7 +374,7 @@
   }
   
   button:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #ff779ba3;
   }
   </style>
   

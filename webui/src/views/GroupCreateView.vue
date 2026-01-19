@@ -320,7 +320,7 @@
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: 5px 16px;
     font-weight: 600;
     cursor: pointer;
   }
@@ -377,12 +377,11 @@
   }
 
 
-
     .selected-user {
       background-color: #696465ff;
       color: #3b2a2a;
       border-radius: 8px;
-      padding: 6px 12px;
+      padding: 15px 12px;
       margin: 5px;
     }
 
@@ -416,4 +415,11 @@
       margin-right: 11px;
       cursor: pointer;
     }
+
+    .group-image-label {
+  display: block;
+  margin-top: 12px;   /* <- increase/decrease this */
+  margin-bottom: 6px;
+}
+
     </style>
